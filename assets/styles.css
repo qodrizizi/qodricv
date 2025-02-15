@@ -230,7 +230,7 @@
       /* Contact Section */
         .contact-container {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: flex-start;
             max-width: 1100px;
             margin: 0 auto;
@@ -355,7 +355,23 @@
             transform: translateY(-5px);
             box-shadow: var(--neon-shadow);
         }
-
+        @media (max-width: 768px) {
+            .about-content {
+                display: flex;
+                flex-direction: column;
+                text-align: center;
+            }
+        
+            .about-text {
+                text-align: justify;
+            }
+        
+            .profile-img {
+                max-width: 80%;
+                margin-bottom: 1rem;
+            }
+        }
+        
         /* Container utama */
         .certification-container {
             display: flex;
