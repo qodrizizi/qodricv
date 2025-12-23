@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite'
 
 export default defineConfig({
-    base: './', // Makes paths relative for easier deployment
+    base: '/', // Makes paths relative for easier deployment
     root: './',
     build: {
         outDir: 'dist',
