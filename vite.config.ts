@@ -1,10 +1,19 @@
 import { defineConfig } from 'vite'
 
 export default defineConfig({
-    base: '/', // Makes paths relative for easier deployment
+    base: '/', // Root path for my.id domain
     root: './',
+    publicDir: 'assets', // Copy assets folder to dist
     build: {
         outDir: 'dist',
+        assetsDir: 'assets',
+        rollupOptions: {
+            output: {
+                assetFileNames: 'assets/[name]-[hash][extname]',
+                chunkFileNames: 'assets/[name]-[hash].js',
+                entryFileNames: 'assets/[name]-[hash].js',
+            }
+        }
     },
     server: {
         port: 3000

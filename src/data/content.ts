@@ -35,42 +35,42 @@ export const profileData: Profile = {
         {
             name: "Digital Forensic",
             issuer: "PT Analis Forensic Digital",
-            image: "/assets/img/certification1.png",
+            image: "/img/certification1.png",
             icon: "fas fa-certificate",
             description: "Expertise in Digital Forensic Analysis and Investigation."
         },
         {
             name: "CSIL-CI",
             issuer: "CSI-Linux",
-            image: "/assets/img/certification3.jpg",
+            image: "/img/certification3.jpg",
             icon: "fas fa-shield-alt",
             description: "Certified Computer Investigator by CSI Linux."
         },
         {
             name: "Junior Web Developer",
             issuer: "BNSP",
-            image: "/assets/img/web.jpg",
+            image: "/img/web.jpg",
             icon: "fas fa-code",
             description: "National professional certification for Front-End and Back-End development."
         },
         {
             name: "Junior Network Administrator",
             issuer: "BNSP",
-            image: "/assets/img/network.jpg",
+            image: "/img/network.jpg",
             icon: "fas fa-network-wired",
             description: "National certification for Network Topology and IP Management."
         },
         {
             name: "IT and Database",
             issuer: "Bakrie Center Foundation",
-            image: "/assets/img/certification2.jpg",
+            image: "/img/certification2.jpg",
             icon: "fas fa-database",
             description: "Internship program certification focusing on Database Management."
         },
         {
             name: "Operator Komputer Madya",
             issuer: "BNSP",
-            image: "/assets/img/komputer.jpg",
+            image: "/img/komputer.jpg",
             icon: "fas fa-desktop",
             description: "National certification for office competence (Word, Excel, PowerPoint)."
         }
@@ -80,7 +80,7 @@ export const profileData: Profile = {
             role: "Web Developer",
             company: "Jeumpa SIKMRS",
             period: "2024",
-            logo: "/assets/img/sikmrs.jpg",
+            logo: "/img/sikmrs.jpg",
             type: "work",
             description: "Developed a comprehensive hospital management system using CodeIgniter 4, implementing secure authentication and optimizing performance."
         },
@@ -88,7 +88,7 @@ export const profileData: Profile = {
             role: "IT and Database Division",
             company: "Bakrie Center Foundation",
             period: "Aug 2023 - Dec 2023",
-            logo: "/assets/img/BCF.png",
+            logo: "/img/BCF.png",
             type: "work",
             description: "Developed a website and database to accelerate TB elimination by 2030. Implemented robust data management systems."
         },
@@ -96,7 +96,7 @@ export const profileData: Profile = {
             role: "Leader of Cyber Security Community",
             company: "CSC UMSU",
             period: "2023",
-            logo: "/assets/img/csc.png",
+            logo: "/img/csc.png",
             type: "community",
             description: "Led the Cyber Security Community, organizing activities to increase knowledge and skills in cybersecurity."
         },
@@ -104,7 +104,7 @@ export const profileData: Profile = {
             role: "Education and Research Division",
             company: "HIMATIF",
             period: "2023",
-            logo: "/assets/img/himatif.jpg",
+            logo: "/img/himatif.jpg",
             type: "community",
             description: "Conducted studies and provided solutions for various IT-related challenges in the student association."
         }
