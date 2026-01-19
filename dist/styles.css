@@ -1,0 +1,527 @@
+        :root {
+            --cyber-green: #00ff9d;
+            --cyber-blue: #00a8ff;
+            --dark-bg: #0a0a0f;
+            --neon-shadow: 0 0 10px var(--cyber-green);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background-color: var(--dark-bg);
+            color: white;
+            overflow-x: hidden;
+        }
+
+      /* Styling Navbar */
+.cyber-nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(10, 10, 15, 0.95);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    border-bottom: 2px solid var(--cyber-green);
+    padding: 1rem 2rem;
+}
+
+/* Kontainer Navbar dengan Flexbox */
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+/* CV QODRI Logo */
+.nav-logo a {
+    font-size: 1.5rem;
+    font-family: 'Orbitron', sans-serif;
+    color: var(--cyber-green);
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.nav-logo a:hover {
+    text-shadow: var(--neon-shadow);
+}
+
+/* Styling Menu Navigasi (PC/Laptop) */
+.nav-list {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-item {
+    margin: 0 1.5rem;
+    position: relative;
+}
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+    font-family: 'Orbitron', sans-serif;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+    color: var(--cyber-green);
+    text-shadow: var(--neon-shadow);
+}
+
+/* Efek garis bawah saat hover */
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background: var(--cyber-green);
+    transition: width 0.3s;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+/* Hamburger Menu (Hanya Muncul di Smartphone) */
+.hamburger-menu {
+    display: none;
+    font-size: 2rem;
+    color: white;
+    cursor: pointer;
+    user-select: none;
+}
+
+/* RESPONSIVE: Saat layar kecil */
+@media screen and (max-width: 1130px) {
+    .nav-container {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .hamburger-menu {
+        display: block; /* Munculkan tombol hamburger */
+    }
+
+    .nav-list {
+        display: none; /* Awalnya tersembunyi */
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: rgba(10, 10, 15, 0.95);
+        padding: 1rem 0;
+        text-align: center;
+        transform: translateY(-10px); /* Awalnya sedikit naik */
+        opacity: 0; /* Awalnya transparan */
+        transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    }
+
+    .nav-list.show {
+        display: flex;
+        transform: translateY(0); /* Turun ke posisi normal */
+        opacity: 1; /* Muncul secara perlahan */
+    }
+
+    .nav-item {
+        margin: 0.5rem 0;
+    }
+}
+
+
+
+        /* Section Common Styles */
+        section {
+            min-height: 100vh;
+            padding: 8rem 2rem 4rem;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        section.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--cyber-green);
+            margin-bottom: 3rem;
+            text-align: center;
+            text-shadow: var(--neon-shadow);
+        }
+
+        /* Home Section */
+        #home {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: radial-gradient(circle, rgba(0,255,157,0.1) 0%, rgba(10,10,15,1) 70%);
+        }
+
+        .hero-text h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: glitch 2s infinite;
+        }
+
+        /* Animation Keyframes */
+        @keyframes glitch {
+            0% { text-shadow: 2px 2px var(--cyber-blue); }
+            25% { transform: translate(-2px, 1px); }
+            50% { transform: translate(-1px, -1px); }
+            75% { transform: translate(2px, 1px); }
+            100% { text-shadow: -2px -2px var(--cyber-blue); }
+        }
+
+        /* Skill Section */
+        .skill-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 5px;
+            border: 1px solid var(--cyber-green);
+            transition: transform 0.3s ease;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--neon-shadow);
+        }
+
+        /* Experience Timeline */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background: var(--cyber-green);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+        }
+
+      /* Contact Section */
+        .contact-container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            max-width: 1100px;
+            margin: 0 auto;
+            gap: 2rem;
+            padding: 2rem;
+        }
+
+        /* Informasi Kontak */
+        .contact-info {
+            flex: 1;
+            max-width: 400px;
+            background: #000000;
+            padding: 1.5rem;
+            border-radius: 5px;
+            border: 1px solid var(--cyber-green);
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-item i {
+            font-size: 1.5rem;
+            color: #1abc9c;
+        }
+
+        .contact-map {
+            width: 100%;
+            height: 200px;
+            border: none;
+            border-radius: 8px;
+        }
+
+        /* Formulir */
+        .contact-form {
+            flex: 1;
+            max-width: 600px;
+            background: #000000;
+            padding: 1.5rem;
+            border-radius: 5px;
+            border: 1px solid var(--cyber-green);
+        }
+
+        .form-group {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .form-input, .form-button {
+            width: 100%;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid #1abc9c;
+            border-radius: 5px;
+            transition: 0.3s ease;
+        }
+
+        .form-input {
+            background: #f9f9f9;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #1abc9c;
+            box-shadow: 0 0 5px rgba(26, 188, 156, 0.5);
+        }
+
+        .form-button {
+            background: #1abc9c;
+            color: white;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .form-button:hover {
+            background: #16a085;
+        }
+
+
+        /* About Section */
+        .about-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        .about-text {
+            text-align: justify;
+        }
+        .profile-img {
+            width: 100%;
+            border-radius: 10px;
+            border: 2px solid var(--cyber-green);
+            box-shadow: var(--neon-shadow);
+        }
+
+        .skill-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .skill-card {
+            background: rgba(255,255,255,0.05);
+            padding: 2rem;
+            border-radius: 10px;
+            border: 1px solid var(--cyber-green);
+            transition: transform 0.3s ease;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--neon-shadow);
+        }
+        @media (max-width: 768px) {
+            .about-content {
+                display: flex;
+                flex-direction: column;
+                text-align: center;
+            }
+        
+            .about-text {
+                text-align: justify;
+            }
+        
+            .profile-img {
+                max-width: 80%;
+                margin-bottom: 1rem;
+            }
+        }
+        
+        /* Container utama */
+        .certification-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        /* Box sertifikasi */
+        .certification-box {
+            background: #fff;
+            width: 300px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .certification-box:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Gambar sertifikasi */
+        .certification-box img {
+            width: 100%;
+            height: auto;
+            border-bottom: 2px solid #1abc9c;
+        }
+        
+        /* Konten dalam box */
+        .certification-content {
+            padding: 15px;
+        }
+
+        .certification-content h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .certification-content p {
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* Experience Section */
+.experience-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.experience-item {
+    display: flex;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--cyber-green);
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: var(--neon-shadow);
+    transition: 0.3s ease-in-out;
+}
+
+.experience-item:hover {
+    transform: scale(1.02);
+}
+
+.experience-item img {
+    width: 120px;
+    height: 120px;
+    border-radius: 8px;
+    object-fit: cover;
+    margin-right: 15px;
+}
+
+.experience-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.experience-content h3 {
+    color: var(--cyber-green);
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.experience-content h4 {
+    font-size: 14px;
+    opacity: 0.8;
+    margin-bottom: 10px;
+}
+
+.experience-content p {
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+        /* Footer */
+        .footer {
+            background: #0a0a0f;
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            border-top: 2px solid var(--cyber-green);
+        }
+
+        .footer-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .footer-content h3 {
+            margin-bottom: 15px;
+            font-size: 20px;
+            color: var(--cyber-green);
+        }
+
+        .footer-content p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+
+        .footer-content a {
+            color: var(--cyber-green);
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .footer-content a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-bottom {
+            margin-top: 20px;
+            font-size: 12px;
+            opacity: 0.7;
+        }
+        .notification {
+            position: fixed;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: green;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            display: none;
+            z-index: 1000;
+        }
