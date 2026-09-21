@@ -17,6 +17,7 @@ export const profileData: Profile = {
         { name: "TypeScript", icon: "fab fa-js", level: 85, category: "software-engineer" },
         { name: "PHP", icon: "fab fa-php", level: 88, category: "software-engineer" },
         { name: "CodeIgniter 4", icon: "fas fa-fire", level: 90, category: "software-engineer" },
+        { name: "Laravel", icon: "fab fa-laravel", level: 95, category: "software-engineer" },
         { name: "UI/UX Design", icon: "fas fa-paint-brush", level: 85, category: "software-engineer" },
 
         // System Admin
@@ -77,9 +78,17 @@ export const profileData: Profile = {
     ],
     experience: [
         {
+            role: "Programmer",
+            company: "Telkomsel",
+            period: "Juni 2025 - September 2025",
+            logo: "/img/telkomsel.png",
+            type: "work",
+            description: "Developed a comprehensive system using python, implementing secure authentication and optimizing performance."
+        },
+        {
             role: "Web Developer",
             company: "Jeumpa SIKMRS",
-            period: "2024",
+            period: "Januari 2024 - December 2024",
             logo: "/img/sikmrs.jpg",
             type: "work",
             description: "Developed a comprehensive hospital management system using CodeIgniter 4, implementing secure authentication and optimizing performance."

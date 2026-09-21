@@ -379,6 +379,7 @@ body {
 .about-text p {
     margin-bottom: 1.5rem;
     color: var(--text-dim);
+    text-align: justify;
 }
 
 /* Skills Section */
