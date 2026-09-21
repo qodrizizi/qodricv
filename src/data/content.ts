@@ -78,6 +78,14 @@ export const profileData: Profile = {
     ],
     experience: [
         {
+            role: "Software Engineer / IT Developer",
+            company: "Dinas Kominfostan Deli Serdang",
+            period: "Januari 2026 - Sekarang",
+            logo: "/img/kominfo.png",
+            type: "work",
+            description: "Developed and maintained regional government information systems, web applications, and digital services to support e-government initiatives in Deli Serdang."
+        },
+        {
             role: "Programmer",
             company: "Telkomsel",
             period: "Juni 2025 - September 2025",
