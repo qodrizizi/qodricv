@@ -19,7 +19,24 @@ export interface Experience {
     period: string;
     logo: string;
     description: string;
-    type: 'work' | 'education' | 'community';
+    type?: 'work' | 'education' | 'community';
+}
+
+export interface Organization {
+    role: string;
+    organization: string;
+    period: string;
+    logo: string;
+    description: string;
+}
+
+export interface Education {
+    degree: string;
+    institution: string;
+    period: string;
+    logo: string;
+    gpa?: string;
+    description: string;
 }
 
 export interface ContactInfo {
@@ -39,20 +56,15 @@ export interface Project {
     repoUrl?: string; // Optional
 }
 
-export interface LocalProject {
-    name: string;
-    path: string;
-    url: string;
-}
-
 export interface Profile {
     name: string;
     titles: string[];
     about: string[];
+    education?: Education[];
     skills: Skill[];
     certifications: Certification[];
     experience: Experience[];
+    organizations?: Organization[];
     projects: Project[];
-    workspace: LocalProject[];
     contact: ContactInfo;
 }

@@ -21,9 +21,13 @@
         </div>
     </div>
 
-    <!-- Background Elements -->
-    <div class="grid-bg"></div>
-    <div class="particles" id="particles"></div>
+    <!-- Animated Cyber Background & Dynamic Lighting -->
+    <canvas id="cyber-canvas" class="cyber-canvas"></canvas>
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+    <div class="glow-orb orb-3"></div>
+    <div class="cyber-grid-overlay"></div>
+    <div class="mouse-glow" id="mouse-glow"></div>
 
     <nav class="nav-dashboard" id="navbar">
         <div class="nav-container">
@@ -45,7 +49,6 @@
                 <li class="nav-item"><a class="nav-link" href="#about" data-text="ABOUT">About</a></li>
                 <li class="nav-item"><a class="nav-link" href="#skills" data-text="SKILLS">Skills</a></li>
                 <li class="nav-item"><a class="nav-link" href="#projects" data-text="PROJECTS">Projects</a></li>
-                <li class="nav-item"><a class="nav-link" href="#workspace" data-text="DEV_ENV">Workspace</a></li>
                 <li class="nav-item"><a class="nav-link" href="#certification" data-text="CERTS">Certifications</a></li>
                 <li class="nav-item"><a class="nav-link" href="#experience" data-text="EXP">Experience</a></li>
                 <li class="nav-item"><a class="nav-link" href="#contact" data-text="CONTACT">Contact</a></li>
@@ -105,27 +108,9 @@
             </div>
         </section>
 
-        <section id="workspace" class="section-container">
-            <div class="section-header">
-                <h2><span class="mono-prefix">04.</span> LOCAL_WORKSPACE</h2>
-                <div class="header-line"></div>
-            </div>
-            <div class="workspace-terminal">
-                <div class="terminal-header">
-                    <span class="dot red"></span>
-                    <span class="dot yellow"></span>
-                    <span class="dot green"></span>
-                    <span class="terminal-title">ls -la C:/laragon/www/</span>
-                </div>
-                <div class="terminal-body" id="workspace-grid">
-                    <!-- Dynamic Content -->
-                </div>
-            </div>
-        </section>
-
         <section id="certification" class="section-container">
             <div class="section-header">
-                <h2><span class="mono-prefix">05.</span> CERTIFICATIONS</h2>
+                <h2><span class="mono-prefix">04.</span> CERTIFICATIONS</h2>
                 <div class="header-line"></div>
             </div>
             <div id="certification-grid" class="certification-container">
@@ -135,7 +120,7 @@
 
         <section id="experience" class="section-container">
             <div class="section-header">
-                <h2><span class="mono-prefix">06.</span> SYSTEM_LOGS (EXPERIENCE)</h2>
+                <h2><span class="mono-prefix">05.</span> SYSTEM_LOGS (EXPERIENCE)</h2>
                 <div class="header-line"></div>
             </div>
             <div id="experience-container" class="experience-list">
@@ -145,7 +130,7 @@
 
         <section id="contact" class="section-container">
             <div class="section-header">
-                <h2><span class="mono-prefix">07.</span> ESTABLISH_CONNECTION</h2>
+                <h2><span class="mono-prefix">06.</span> ESTABLISH_CONNECTION</h2>
                 <div class="header-line"></div>
             </div>
             <div class="contact-grid">

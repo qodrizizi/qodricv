@@ -1,18 +1,21 @@
 import { profileData } from '../data/content';
 import { SkillRenderer } from '../components/SkillRenderer';
 import { SectionRenderer } from '../components/SectionRenderer';
+import { CyberBackground } from '../components/CyberBackground';
 
 export class App {
+    private cyberBg: CyberBackground | null = null;
+
     constructor() {
         this.init();
     }
 
     private init(): void {
+        this.cyberBg = new CyberBackground('cyber-canvas', 'mouse-glow');
         this.renderContent();
         this.setupEventListeners();
         this.handleLoading();
         this.initScrollToTop();
-        this.initParticles();
     }
 
     private renderContent(): void {
@@ -35,14 +38,11 @@ export class App {
         // Render Projects
         SectionRenderer.renderProjects('projects-grid', profileData.projects);
 
-        // Render Workspace
-        SectionRenderer.renderWorkspace('workspace-grid', profileData.workspace);
-
         // Render Certifications
         SectionRenderer.renderCertifications('certification-grid', profileData.certifications);
 
-        // Render Experience
-        SectionRenderer.renderExperience('experience-container', profileData.experience);
+        // Render Experience, Organizations & Education
+        SectionRenderer.renderExperience('experience-container', profileData.experience, profileData.organizations, profileData.education);
 
         // Render Contact
         this.renderContact();
@@ -143,21 +143,7 @@ export class App {
         }
     }
 
-    private initParticles(): void {
-        // Simple particle implementation without external lib dependency
-        const container = document.getElementById('particles');
-        if (!container) return;
 
-        const particleCount = 30;
-        for (let i = 0; i < particleCount; i++) {
-            const p = document.createElement('div');
-            p.className = 'particle';
-            p.style.left = `${Math.random() * 100}%`;
-            p.style.animationDelay = `${Math.random() * 5}s`;
-            p.style.opacity = `${Math.random() * 0.5 + 0.1}`;
-            container.appendChild(p);
-        }
-    }
 
     private initScrollToTop(): void {
         const scrollBtn = document.getElementById('scrollTopBtn');

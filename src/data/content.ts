@@ -81,9 +81,17 @@ export const profileData: Profile = {
             role: "Software Engineer / IT Developer",
             company: "Dinas Kominfostan Deli Serdang",
             period: "Januari 2026 - Sekarang",
-            logo: "/img/kominfo.png",
+            logo: "/img/kominfo.jpg",
             type: "work",
             description: "Developed and maintained regional government information systems, web applications, and digital services to support e-government initiatives in Deli Serdang."
+        },
+        {
+            role: "Software Engineer",
+            company: "PT Willy Dwi Perkasa",
+            period: "Desember 2025 - Sekarang",
+            logo: "/img/wdp.png",
+            type: "work",
+            description: "Developed and maintained scalable software solutions, web applications, and backend systems."
         },
         {
             role: "Programmer",
@@ -108,66 +116,115 @@ export const profileData: Profile = {
             logo: "/img/BCF.png",
             type: "work",
             description: "Developed a website and database to accelerate TB elimination by 2030. Implemented robust data management systems."
-        },
+        }
+    ],
+    education: [
+        {
+            degree: "Bachelor Degree in Information Technology (S1 Teknologi Informasi)",
+            institution: "Universitas Muhammadiyah Sumatera Utara (UMSU)",
+            period: "2021 - 2025",
+            logo: "/img/umsu.png",
+            gpa: "3.88 / 4.00",
+            description: "Graduated with a Bachelor's Degree in Information Technology achieving a GPA of 3.88/4.00 (Distinction/Cum Laude). Specialized in Software Engineering, Network Administration, and Digital Forensics."
+        }
+    ],
+    organizations: [
         {
             role: "Leader of Cyber Security Community",
-            company: "CSC UMSU",
+            organization: "CSC UMSU",
             period: "2023",
             logo: "/img/csc.png",
-            type: "community",
             description: "Led the Cyber Security Community, organizing activities to increase knowledge and skills in cybersecurity."
         },
         {
             role: "Education and Research Division",
-            company: "HIMATIF",
+            organization: "HIMATIF",
             period: "2023",
             logo: "/img/himatif.jpg",
-            type: "community",
             description: "Conducted studies and provided solutions for various IT-related challenges in the student association."
         }
     ],
     projects: [
         {
-            title: "Secure Hospital System",
-            description: "A comprehensive hospital management system with role-based access control and encrypted patient data storage.",
-            technologies: ["CodeIgniter 4", "MySQL", "Bootstrap", "jQuery"],
-            imageUrl: "https://via.placeholder.com/600x400/161b22/58a6ff?text=Hospital+System",
-            demoUrl: "#",
-            repoUrl: "#"
+            title: "Jeumpa SIKMRS",
+            description: "Sistem Informasi Rekam Medis Rumah Sakit komprehensif dengan role-based access control, integrasi modul medis pasien, dan keamanan data.",
+            technologies: ["CodeIgniter 4", "PHP", "MySQL", "Bootstrap", "jQuery"],
+            imageUrl: "/img/sikmrs.jpg"
         },
         {
-            title: "Digital Forensics Toolkit",
-            description: "Automated script collection for initial evidence gathering on Linux systems using Python and Bash.",
-            technologies: ["Python", "Bash", "Linux"],
-            imageUrl: "https://via.placeholder.com/600x400/161b22/238636?text=Forensics+Tool",
-            repoUrl: "#"
+            title: "WDP Finance",
+            description: "Sistem informasi manajemen keuangan dan akuntansi perusahaan untuk pencatatan transaksi, invoicing, dan laporan kas operasional.",
+            technologies: ["Laravel", "PHP", "MySQL", "TailwindCSS", "JavaScript"],
+            imageUrl: "/img/webfinance.png"
         },
         {
-            title: "Network Monitor Dashboard",
-            description: "Real-time network traffic monitoring dashboard using IoT sensors and a web interface.",
-            technologies: ["Node.js", "Socket.io", "React", "Raspberry Pi"],
-            imageUrl: "https://via.placeholder.com/600x400/161b22/f85149?text=Network+Monitor",
-            demoUrl: "#"
+            title: "Web Dinaskominfostan Deliserdang",
+            description: "Portal resmi Dinas Komunikasi, Informatika, Statistik dan Persandian Kabupaten Deli Serdang untuk layanan informasi publik dan e-government.",
+            technologies: ["Laravel", "PHP", "PostgreSQL", "Bootstrap", "REST API"],
+            imageUrl: "/img/kominfo.png",
+            demoUrl: "https://dinaskominfostan-ds.deliserdangkab.go.id/"
+        },
+        {
+            title: "Pusaka Deli",
+            description: "Platform sistem informasi layanan terpadu kebudayaan dan arsip daerah Kabupaten Deli Serdang.",
+            technologies: ["Laravel", "PHP", "MySQL", "JavaScript", "Bootstrap"],
+            imageUrl: "/img/pusaka.png",
+            demoUrl: "https://pusakadeli.deliserdangkab.go.id/"
+        },
+        {
+            title: "SI- Informan",
+            description: "Sistem Informasi dan Pelayanan Perizinan DPMPTSP Kabupaten Deli Serdang untuk transparansi dan kemudahan layanan masyarakat.",
+            technologies: ["Laravel", "PHP", "PostgreSQL", "JavaScript", "Bootstrap"],
+            imageUrl: "/img/siinforman.png",
+            demoUrl: "https://dpmptsp.deliserdangkab.go.id/si-informan/"
+        },
+        {
+            title: "Website Setwan Deliserdang",
+            description: "Portal resmi Sekretariat DPRD Kabupaten Deli Serdang untuk transparansi aspirasi publik dan dokumentasi kegiatan kedewanan.",
+            technologies: ["Laravel", "PHP", "PostgreSQL", "Bootstrap", "JavaScript"],
+            imageUrl: "/img/setwan.png",
+            demoUrl: "https://setwan.deliserdangkab.go.id/"
+        },
+        {
+            title: "Website Setdakab Deliserdang",
+            description: "Website resmi Sekretariat Daerah Kabupaten Deli Serdang yang memuat regulasi daerah, profil birokrasi, dan berita pemerintahan.",
+            technologies: ["Laravel", "PHP", "PostgreSQL", "Bootstrap", "JavaScript"],
+            imageUrl: "/img/setdakab.png",
+            demoUrl: "https://setdakab.deliserdangkab.go.id/"
+        },
+        {
+            title: "DAKL",
+            description: "Sistem Data Analisis Kebutuhan Lembaga / Pendidikan pada Dinas Pendidikan Kabupaten Deli Serdang berbasis web.",
+            technologies: ["Laravel", "PHP", "PostgreSQL", "Chart.js", "Bootstrap"],
+            imageUrl: "/img/dakl.png",
+            demoUrl: "https://dakl-pendidikan.deliserdangkab.go.id/"
+        },
+        {
+            title: "Website Perpustakaan & Arsip",
+            description: "Sistem manajemen katalog buku digital, kearsipan daerah, dan otomasi peminjaman literatur Dinas Perpustakaan & Arsip.",
+            technologies: ["Laravel", "PHP", "PostgreSQL", "JavaScript", "Bootstrap"],
+            imageUrl: "/img/kominfo.png"
+        },
+        {
+            title: "SiPOSTES",
+            description: "Sistem Informasi Pos Pelayanan Terpadu Elektronik untuk optimalisasi pelaporan data dan monitoring kesehatan masyarakat.",
+            technologies: ["Laravel", "PHP", "PostgreSQL", "REST API", "Bootstrap"],
+            imageUrl: "/img/sipostes.png",
+            demoUrl: "https://sipostes.deliserdangkab.go.id/"
+        },
+        {
+            title: "API Website Sidisko",
+            description: "Backend RESTful API dan mikroservis data untuk integrasi aplikasi Dinas Koperasi dan UKM (Sidisko) Deli Serdang.",
+            technologies: ["Laravel", "PHP", "PostgreSQL", "REST API", "JWT"],
+            imageUrl: "/img/kominfo.jpg"
+        },
+        {
+            title: "Website Project Management Deliserdang",
+            description: "Sistem terpusat manajemen proyek dan tracking progres tugas teknis serta aplikasi di lingkungan Pemkab Deli Serdang.",
+            technologies: ["Laravel", "PHP", "PostgreSQL", "TailwindCSS", "JavaScript"],
+            imageUrl: "/img/pm.png",
+            demoUrl: "https://pm.deliserdangkab.go.id"
         }
-    ],
-    workspace: [
-        { name: "Dinaskominfostan Project", path: "c:/laragon/www/DinaskominfostanProject", url: "http://dinaskominfostanproject.test" },
-        { name: "Manajemen Project", path: "c:/laragon/www/ManajemenProject", url: "http://manajemenproject.test" },
-        { name: "Oxerity Web Profile", path: "c:/laragon/www/Oxerity-Web-Company-Profile", url: "http://oxerity-web-company-profile.test" },
-        { name: "Template Qodri", path: "c:/laragon/www/TEMPLATENYQODRI", url: "http://templatenyqodri.test" },
-        { name: "POS API", path: "c:/laragon/www/api-pos", url: "http://api-pos.test" },
-        { name: "Backend Core", path: "c:/laragon/www/backend", url: "http://backend.test" },
-        { name: "Sidisko BE", path: "c:/laragon/www/be-sidisko", url: "http://be-sidisko.test" },
-        { name: "CMS Deli Serdang", path: "c:/laragon/www/cmsdeliserdangkab", url: "http://cmsdeliserdangkab.test" },
-        { name: "CV Ahmad", path: "c:/laragon/www/cv-ahmad", url: "http://cv-ahmad.test" },
-        { name: "Sidisko FE", path: "c:/laragon/www/fe-sidisko", url: "http://fe-sidisko.test" },
-        { name: "Frontend Next", path: "c:/laragon/www/frontend-next", url: "http://frontend-next.test" },
-        { name: "My Template Keren", path: "c:/laragon/www/mytemplatekerenbroooo", url: "http://mytemplatekerenbroooo.test" },
-        { name: "POS Dashboard", path: "c:/laragon/www/pos-dashboard", url: "http://pos-dashboard.test" },
-        { name: "Pusaka Deli", path: "c:/laragon/www/pusaka-deli", url: "http://pusaka-deli.test" },
-        { name: "SI Informan Website", path: "c:/laragon/www/si-informanwebsite", url: "http://si-informanwebsite.test" },
-        { name: "Web Rekam Medis", path: "c:/laragon/www/web_rekammedis", url: "http://web_rekammedis.test" },
-        { name: "Web Finance", path: "c:/laragon/www/webfinance", url: "http://webfinance.test" }
     ],
     contact: {
         address: "Medan, Sumatera Utara, Indonesia",
