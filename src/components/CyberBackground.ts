@@ -6,7 +6,6 @@ interface Particle {
     radius: number;
     color: string;
     alpha: number;
-    pulseSpeed: number;
 }
 
 export class CyberBackground {
@@ -68,8 +67,7 @@ export class CyberBackground {
                 vy: (Math.random() - 0.5) * 0.7,
                 radius: Math.random() * 2.2 + 1.2,
                 color: baseColor,
-                alpha: Math.random() * 0.5 + 0.35,
-                pulseSpeed: Math.random() * 0.02 + 0.01
+                alpha: Math.random() * 0.5 + 0.35
             });
         }
     }

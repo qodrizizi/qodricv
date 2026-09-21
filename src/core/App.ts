@@ -4,14 +4,12 @@ import { SectionRenderer } from '../components/SectionRenderer';
 import { CyberBackground } from '../components/CyberBackground';
 
 export class App {
-    private cyberBg: CyberBackground | null = null;
-
     constructor() {
         this.init();
     }
 
     private init(): void {
-        this.cyberBg = new CyberBackground('cyber-canvas', 'mouse-glow');
+        new CyberBackground('cyber-canvas', 'mouse-glow');
         this.renderContent();
         this.setupEventListeners();
         this.handleLoading();
