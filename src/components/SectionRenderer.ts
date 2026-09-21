@@ -1,16 +1,101 @@
 import { Certification, Education, Experience, Organization, Project } from '../types';
+import { ImageModal } from './ImageModal';
+import { Toast } from './Toast';
 
 export class SectionRenderer {
+  private static allProjects: Project[] = [];
+  private static currentProjectFilter = 'all';
+  private static searchKeyword = '';
 
   static renderProjects(containerId: string, projects: Project[]): void {
     const container = document.getElementById(containerId);
     if (!container) return;
 
-    container.innerHTML = projects.map(proj => `
-          <div class="project-card">
-            <div class="project-img">
+    this.allProjects = projects;
+
+    // Inject filter controls above the grid if not already present
+    if (!document.getElementById('project-filter-controls')) {
+      const controls = document.createElement('div');
+      controls.id = 'project-filter-controls';
+      controls.className = 'project-filter-controls';
+
+      controls.innerHTML = `
+        <div class="project-search-bar">
+          <span class="search-prompt">$ grep -i</span>
+          <input type="text" id="project-search-input" class="project-search-input" placeholder="search projects / tech stack..." autocomplete="off">
+          <i class="fas fa-search search-icon"></i>
+        </div>
+        <div class="project-filter-buttons" id="project-filter-buttons">
+          <button class="filter-btn active" data-filter="all">ALL [${projects.length}]</button>
+          <button class="filter-btn" data-filter="government">GOV & E-GOV</button>
+          <button class="filter-btn" data-filter="enterprise">ENTERPRISE & FINANCE</button>
+          <button class="filter-btn" data-filter="backend">API & BACKEND</button>
+          <button class="filter-btn" data-filter="health">HEALTHCARE</button>
+        </div>
+      `;
+
+      container.parentNode?.insertBefore(controls, container);
+
+      // Bind search input
+      const searchInput = document.getElementById('project-search-input') as HTMLInputElement;
+      searchInput?.addEventListener('input', (e) => {
+        this.searchKeyword = (e.target as HTMLInputElement).value.toLowerCase().trim();
+        this.renderProjectsGrid(containerId);
+      });
+
+      // Bind filter buttons
+      const buttons = controls.querySelectorAll('.filter-btn');
+      buttons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          buttons.forEach(b => b.classList.remove('active'));
+          const target = e.currentTarget as HTMLElement;
+          target.classList.add('active');
+          this.currentProjectFilter = target.dataset.filter || 'all';
+          this.renderProjectsGrid(containerId);
+        });
+      });
+    }
+
+    this.renderProjectsGrid(containerId);
+  }
+
+  private static renderProjectsGrid(containerId: string): void {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    let filtered = this.allProjects;
+
+    // Filter by category
+    if (this.currentProjectFilter !== 'all') {
+      filtered = filtered.filter(p => p.category === this.currentProjectFilter);
+    }
+
+    // Filter by search keyword
+    if (this.searchKeyword) {
+      filtered = filtered.filter(p =>
+        p.title.toLowerCase().includes(this.searchKeyword) ||
+        p.description.toLowerCase().includes(this.searchKeyword) ||
+        p.technologies.some(t => t.toLowerCase().includes(this.searchKeyword))
+      );
+    }
+
+    if (filtered.length === 0) {
+      container.innerHTML = `
+        <div class="projects-empty-state">
+          <i class="fas fa-search-minus"></i>
+          <p>> No matching projects found for query "<span class="term-cyan">${this.escapeHtml(this.searchKeyword)}</span>"</p>
+        </div>
+      `;
+      return;
+    }
+
+    container.innerHTML = filtered.map(proj => `
+          <div class="project-card" data-category="${proj.category || 'all'}">
+            <div class="project-img" data-img="${proj.imageUrl}" data-title="${proj.title}">
               <img src="${proj.imageUrl}" alt="${proj.title}" loading="lazy">
+              <div class="project-zoom-badge"><i class="fas fa-search-plus"></i> PREVIEW</div>
               <div class="project-overlay">
+                 <button class="btn preview-btn" data-img="${proj.imageUrl}" data-title="${proj.title}" data-desc="${proj.description}"><i class="fas fa-eye"></i> View</button>
                  ${proj.demoUrl && proj.demoUrl !== '#' ? `<a href="${proj.demoUrl}" target="_blank" rel="noopener noreferrer" class="btn primary-btn"><i class="fas fa-external-link-alt"></i> Visit</a>` : ''}
                  ${proj.repoUrl && proj.repoUrl !== '#' ? `<a href="${proj.repoUrl}" target="_blank" rel="noopener noreferrer" class="btn secondary-btn"><i class="fab fa-github"></i> Code</a>` : ''}
               </div>
@@ -27,6 +112,19 @@ export class SectionRenderer {
             </div>
           </div>
         `).join('');
+
+    // Bind ImageModal triggers on project images & preview buttons
+    container.querySelectorAll('.project-img, .preview-btn').forEach(el => {
+      el.addEventListener('click', (e) => {
+        const target = (e.currentTarget as HTMLElement);
+        const imgSrc = target.getAttribute('data-img');
+        const title = target.getAttribute('data-title') || 'Project Preview';
+        const desc = target.getAttribute('data-desc') || '';
+        if (imgSrc) {
+          ImageModal.open(imgSrc, title, desc);
+        }
+      });
+    });
   }
 
   static renderCertifications(containerId: string, certs: Certification[]): void {
@@ -34,17 +132,31 @@ export class SectionRenderer {
     if (!container) return;
 
     container.innerHTML = certs.map(cert => `
-      <div class="certification-box">
+      <div class="certification-box" data-img="${cert.image}" data-name="${cert.name}" data-issuer="${cert.issuer}">
         <div class="cert-img-wrapper">
             <img src="${cert.image}" alt="${cert.name}" loading="lazy">
+            <div class="cert-hover-zoom"><i class="fas fa-expand-alt"></i> VIEW CREDENTIAL</div>
         </div>
         <div class="certification-content">
           <h3><i class="${cert.icon}"></i> ${cert.name}</h3>
-          <span class="cert-issuer">${cert.issuer}</span>
+          <span class="cert-issuer"><i class="fas fa-check-circle"></i> ${cert.issuer}</span>
           <p>${cert.description}</p>
         </div>
       </div>
     `).join('');
+
+    // Bind ImageModal for certifications
+    container.querySelectorAll('.certification-box').forEach(box => {
+      box.addEventListener('click', (e) => {
+        const target = (e.currentTarget as HTMLElement);
+        const imgSrc = target.getAttribute('data-img');
+        const name = target.getAttribute('data-name') || 'Certification';
+        const issuer = target.getAttribute('data-issuer') || 'BNSP / Organization';
+        if (imgSrc) {
+          ImageModal.open(imgSrc, name, issuer);
+        }
+      });
+    });
   }
 
   static renderExperience(containerId: string, experiences: Experience[], organizations?: Organization[], educations?: Education[]): void {
@@ -144,5 +256,44 @@ export class SectionRenderer {
     }
 
     container.innerHTML = html;
+  }
+
+  static renderContact(contact: any): void {
+    const addressEl = document.getElementById('contact-address');
+    const phoneEl = document.getElementById('contact-phone');
+    const emailEl = document.getElementById('contact-email');
+
+    if (addressEl) {
+      addressEl.innerHTML = `${contact.address} <button class="copy-btn" data-copy="${contact.address}" title="Copy Address"><i class="fas fa-copy"></i></button>`;
+    }
+    if (phoneEl) {
+      phoneEl.innerHTML = `${contact.phone} <button class="copy-btn" data-copy="${contact.phone}" title="Copy Phone"><i class="fas fa-copy"></i></button>`;
+    }
+    if (emailEl) {
+      emailEl.innerHTML = `${contact.email} <button class="copy-btn" data-copy="${contact.email}" title="Copy Email"><i class="fas fa-copy"></i></button>`;
+    }
+
+    // Bind clipboard copying
+    document.querySelectorAll('.copy-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const text = (e.currentTarget as HTMLElement).getAttribute('data-copy') || '';
+        if (text) {
+          navigator.clipboard.writeText(text).then(() => {
+            Toast.show(`COPIED TO CLIPBOARD: ${text}`, 'success');
+          }).catch(() => {
+            Toast.show('COPIED TO CLIPBOARD', 'success');
+          });
+        }
+      });
+    });
+
+    const iframe = document.querySelector('.contact-map') as HTMLIFrameElement;
+    if (iframe) iframe.src = contact.mapEmbedUrl;
+  }
+
+  private static escapeHtml(str: string): string {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
   }
 }

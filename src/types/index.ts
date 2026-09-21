@@ -52,6 +52,7 @@ export interface Project {
     description: string;
     technologies: string[];
     imageUrl: string;
+    category?: 'government' | 'enterprise' | 'backend' | 'health';
     demoUrl?: string; // Optional
     repoUrl?: string; // Optional
 }

@@ -149,19 +149,22 @@ export const profileData: Profile = {
             title: "Jeumpa SIKMRS",
             description: "Sistem Informasi Rekam Medis Rumah Sakit komprehensif dengan role-based access control, integrasi modul medis pasien, dan keamanan data.",
             technologies: ["CodeIgniter 4", "PHP", "MySQL", "Bootstrap", "jQuery"],
-            imageUrl: "/img/sikmrs.jpg"
+            imageUrl: "/img/sikmrs.jpg",
+            category: "health"
         },
         {
             title: "WDP Finance",
             description: "Sistem informasi manajemen keuangan dan akuntansi perusahaan untuk pencatatan transaksi, invoicing, dan laporan kas operasional.",
             technologies: ["Laravel", "PHP", "MySQL", "TailwindCSS", "JavaScript"],
-            imageUrl: "/img/webfinance.png"
+            imageUrl: "/img/webfinance.png",
+            category: "enterprise"
         },
         {
             title: "Web Dinaskominfostan Deliserdang",
             description: "Portal resmi Dinas Komunikasi, Informatika, Statistik dan Persandian Kabupaten Deli Serdang untuk layanan informasi publik dan e-government.",
             technologies: ["Laravel", "PHP", "PostgreSQL", "Bootstrap", "REST API"],
             imageUrl: "/img/kominfo.png",
+            category: "government",
             demoUrl: "https://dinaskominfostan-ds.deliserdangkab.go.id/"
         },
         {
@@ -169,6 +172,7 @@ export const profileData: Profile = {
             description: "Platform sistem informasi layanan terpadu kebudayaan dan arsip daerah Kabupaten Deli Serdang.",
             technologies: ["Laravel", "PHP", "MySQL", "JavaScript", "Bootstrap"],
             imageUrl: "/img/pusaka.png",
+            category: "government",
             demoUrl: "https://pusakadeli.deliserdangkab.go.id/"
         },
         {
@@ -176,6 +180,7 @@ export const profileData: Profile = {
             description: "Sistem Informasi dan Pelayanan Perizinan DPMPTSP Kabupaten Deli Serdang untuk transparansi dan kemudahan layanan masyarakat.",
             technologies: ["Laravel", "PHP", "PostgreSQL", "JavaScript", "Bootstrap"],
             imageUrl: "/img/siinforman.png",
+            category: "government",
             demoUrl: "https://dpmptsp.deliserdangkab.go.id/si-informan/"
         },
         {
@@ -183,6 +188,7 @@ export const profileData: Profile = {
             description: "Portal resmi Sekretariat DPRD Kabupaten Deli Serdang untuk transparansi aspirasi publik dan dokumentasi kegiatan kedewanan.",
             technologies: ["Laravel", "PHP", "PostgreSQL", "Bootstrap", "JavaScript"],
             imageUrl: "/img/setwan.png",
+            category: "government",
             demoUrl: "https://setwan.deliserdangkab.go.id/"
         },
         {
@@ -190,6 +196,7 @@ export const profileData: Profile = {
             description: "Website resmi Sekretariat Daerah Kabupaten Deli Serdang yang memuat regulasi daerah, profil birokrasi, dan berita pemerintahan.",
             technologies: ["Laravel", "PHP", "PostgreSQL", "Bootstrap", "JavaScript"],
             imageUrl: "/img/setdakab.png",
+            category: "government",
             demoUrl: "https://setdakab.deliserdangkab.go.id/"
         },
         {
@@ -197,32 +204,37 @@ export const profileData: Profile = {
             description: "Sistem Data Analisis Kebutuhan Lembaga / Pendidikan pada Dinas Pendidikan Kabupaten Deli Serdang berbasis web.",
             technologies: ["Laravel", "PHP", "PostgreSQL", "Chart.js", "Bootstrap"],
             imageUrl: "/img/dakl.png",
+            category: "government",
             demoUrl: "https://dakl-pendidikan.deliserdangkab.go.id/"
         },
         {
             title: "Website Perpustakaan & Arsip",
             description: "Sistem manajemen katalog buku digital, kearsipan daerah, dan otomasi peminjaman literatur Dinas Perpustakaan & Arsip.",
             technologies: ["Laravel", "PHP", "PostgreSQL", "JavaScript", "Bootstrap"],
-            imageUrl: "/img/kominfo.png"
+            imageUrl: "/img/kominfo.png",
+            category: "government"
         },
         {
             title: "SiPOSTES",
             description: "Sistem Informasi Pos Pelayanan Terpadu Elektronik untuk optimalisasi pelaporan data dan monitoring kesehatan masyarakat.",
             technologies: ["Laravel", "PHP", "PostgreSQL", "REST API", "Bootstrap"],
             imageUrl: "/img/sipostes.png",
+            category: "government",
             demoUrl: "https://sipostes.deliserdangkab.go.id/"
         },
         {
             title: "API Website Sidisko",
             description: "Backend RESTful API dan mikroservis data untuk integrasi aplikasi Dinas Koperasi dan UKM (Sidisko) Deli Serdang.",
             technologies: ["Laravel", "PHP", "PostgreSQL", "REST API", "JWT"],
-            imageUrl: "/img/kominfo.jpg"
+            imageUrl: "/img/kominfo.jpg",
+            category: "backend"
         },
         {
             title: "Website Project Management Deliserdang",
             description: "Sistem terpusat manajemen proyek dan tracking progres tugas teknis serta aplikasi di lingkungan Pemkab Deli Serdang.",
             technologies: ["Laravel", "PHP", "PostgreSQL", "TailwindCSS", "JavaScript"],
             imageUrl: "/img/pm.png",
+            category: "government",
             demoUrl: "https://pm.deliserdangkab.go.id"
         }
     ],

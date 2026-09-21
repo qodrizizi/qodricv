@@ -10,6 +10,29 @@
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="icon" type="image/png" href="/img/profile.png" />
+    <link rel="stylesheet" href="/src/styles/main.css">
+    <style>
+        /* Critical CSS to prevent Flash of Unstyled Content (FOUC) */
+        html, body {
+            background-color: #050811 !important;
+            color: #f1f5f9;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        #loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #050811;
+            z-index: 99999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
 </head>
 
 <body>
@@ -60,14 +83,28 @@
         <section id="home" class="hero-section">
             <div class="hero-grid">
                 <div class="hero-text">
-                    <div class="status-badge"><span class="status-dot"></span> SYSTEM ONLINE</div>
-                    <h1>Loading...</h1>
-                    <p>Loading...</p>
+                    <div class="hero-hud-bar">
+                        <span class="hud-tag"><span class="status-dot"></span> SYSTEM ONLINE</span>
+                        <span class="hud-tag"><i class="fas fa-lock"></i> AES-256 ENCRYPTED</span>
+                        <span class="hud-tag availability"><i class="fas fa-check-circle"></i> OPEN FOR HIRE</span>
+                    </div>
+                    <h1 id="hero-title">Loading...</h1>
+                    <div class="hero-typewriter-box">
+                        <p id="hero-typewriter-text">Loading...</p>
+                    </div>
                     <div class="hero-actions">
-                        <a href="#contact" class="btn primary-btn">INITIATE_CONTACT</a>
-                        <a href="#about" class="btn secondary-btn">VIEW_LOGS</a>
+                        <a href="#contact" class="btn primary-btn"><i class="fas fa-paper-plane"></i> INITIATE_CONTACT</a>
+                        <a href="#about" class="btn secondary-btn"><i class="fas fa-terminal"></i> VIEW_LOGS</a>
+                        <a href="https://wa.me/6281260121852?text=Halo%20Ahmad%20Al%20Qodri,%20saya%20tertarik%20dengan%20portofolio%20Anda." target="_blank" class="btn tertiary-btn"><i class="fab fa-whatsapp"></i> FAST_DISPATCH</a>
                     </div>
                 </div>
+            </div>
+        </section>
+
+        <!-- Key Metrics & Impact Stats -->
+        <section class="stats-section">
+            <div class="section-container stats-container" id="stats-counter-container">
+                <!-- Injected via StatsCounter.ts -->
             </div>
         </section>
 

@@ -2,6 +2,10 @@ import { profileData } from '../data/content';
 import { SkillRenderer } from '../components/SkillRenderer';
 import { SectionRenderer } from '../components/SectionRenderer';
 import { CyberBackground } from '../components/CyberBackground';
+import { Typewriter } from '../components/Typewriter';
+import { StatsCounter } from '../components/StatsCounter';
+import { TerminalWidget } from '../components/TerminalWidget';
+import { ImageModal } from '../components/ImageModal';
 
 export class App {
     constructor() {
@@ -10,18 +14,63 @@ export class App {
 
     private init(): void {
         new CyberBackground('cyber-canvas', 'mouse-glow');
+        ImageModal.init();
         this.renderContent();
+        this.initTypewriter();
+        this.initStats();
+        new TerminalWidget();
         this.setupEventListeners();
         this.handleLoading();
         this.initScrollToTop();
     }
 
+    private initTypewriter(): void {
+        const typewriterEl = document.getElementById('hero-typewriter-text');
+        if (typewriterEl) {
+            const roles = [
+                ...profileData.titles,
+                "Full-Stack Laravel & PostgreSQL Engineer",
+                "Linux Server & Infrastructure Hardener",
+                "CSIL Certified Computer Investigator"
+            ];
+            new Typewriter(typewriterEl, roles);
+        }
+    }
+
+    private initStats(): void {
+        new StatsCounter('stats-counter-container', [
+            {
+                value: 12,
+                suffix: '+',
+                label: 'Production Systems Deployed',
+                icon: 'fas fa-rocket'
+            },
+            {
+                value: 6,
+                suffix: '+',
+                label: 'Verified Certifications (BNSP/CSI)',
+                icon: 'fas fa-award'
+            },
+            {
+                value: 3.88,
+                suffix: ' / 4.00',
+                decimals: 2,
+                label: 'Bachelor Degree GPA (Cum Laude)',
+                icon: 'fas fa-graduation-cap'
+            },
+            {
+                value: 2,
+                suffix: '+ Years',
+                label: 'Software Engineering Experience',
+                icon: 'fas fa-code-branch'
+            }
+        ]);
+    }
+
     private renderContent(): void {
-        // Render Hero
-        const heroTitle = document.querySelector('.hero-text h1');
-        const heroSubtitle = document.querySelector('.hero-text p');
+        // Render Hero Name
+        const heroTitle = document.getElementById('hero-title');
         if (heroTitle) heroTitle.innerHTML = profileData.name;
-        if (heroSubtitle) heroSubtitle.textContent = profileData.titles.join(' | ');
 
         // Render About
         const aboutText = document.querySelector('.about-text');
@@ -33,26 +82,17 @@ export class App {
         const skillRenderer = new SkillRenderer('skill-grid', profileData.skills);
         skillRenderer.render();
 
-        // Render Projects
+        // Render Projects with search and filtering
         SectionRenderer.renderProjects('projects-grid', profileData.projects);
 
-        // Render Certifications
+        // Render Certifications with preview modal
         SectionRenderer.renderCertifications('certification-grid', profileData.certifications);
 
         // Render Experience, Organizations & Education
         SectionRenderer.renderExperience('experience-container', profileData.experience, profileData.organizations, profileData.education);
 
-        // Render Contact
-        this.renderContact();
-    }
-
-    private renderContact(): void {
-        const contact = profileData.contact;
-        document.getElementById('contact-address')!.textContent = contact.address;
-        document.getElementById('contact-phone')!.textContent = contact.phone;
-        document.getElementById('contact-email')!.textContent = contact.email;
-        const iframe = document.querySelector('.contact-map') as HTMLIFrameElement;
-        if (iframe) iframe.src = contact.mapEmbedUrl;
+        // Render Contact with copy-to-clipboard
+        SectionRenderer.renderContact(profileData.contact);
     }
 
     private setupEventListeners(): void {
@@ -116,7 +156,6 @@ export class App {
 
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
-            // -100 to offset the navbar height + padding
             if (window.scrollY >= (sectionTop - 150)) {
                 currentSection = section.getAttribute('id') || '';
             }
@@ -133,21 +172,16 @@ export class App {
     private handleLoading(): void {
         const loading = document.getElementById('loading');
         if (loading) {
-            // Accessing window to ensure we wait for load, but since we are in module
-            // we might just timeout for effect if load is already done.
             setTimeout(() => {
                 loading.classList.add('hidden');
-            }, 1000);
+            }, 800);
         }
     }
-
-
 
     private initScrollToTop(): void {
         const scrollBtn = document.getElementById('scrollTopBtn');
 
         if (scrollBtn) {
-            // Show/Hide Logic
             window.addEventListener('scroll', () => {
                 if (window.scrollY > 300) {
                     scrollBtn.classList.add('visible');
@@ -156,7 +190,6 @@ export class App {
                 }
             });
 
-            // Smooth Scroll Logic
             scrollBtn.addEventListener('click', () => {
                 window.scrollTo({
                     top: 0,
