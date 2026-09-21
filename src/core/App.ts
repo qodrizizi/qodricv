@@ -35,6 +35,9 @@ export class App {
         // Render Projects
         SectionRenderer.renderProjects('projects-grid', profileData.projects);
 
+        // Render Workspace
+        SectionRenderer.renderWorkspace('workspace-grid', profileData.workspace);
+
         // Render Certifications
         SectionRenderer.renderCertifications('certification-grid', profileData.certifications);
 

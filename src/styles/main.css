@@ -568,6 +568,94 @@ body {
     border-radius: 12px;
 }
 
+/* Workspace Section */
+.workspace-terminal {
+    background: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    padding: 1rem;
+    font-family: var(--font-mono);
+    margin-top: 2rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+.workspace-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+}
+
+.workspace-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 1.2rem;
+    background: rgba(48, 54, 61, 0.2);
+    border: 1px solid transparent;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.workspace-item:hover {
+    background: rgba(88, 166, 255, 0.05);
+    border-color: var(--primary);
+    transform: translateX(5px);
+}
+
+.workspace-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.folder-icon {
+    color: var(--primary);
+    font-size: 1.2rem;
+}
+
+.folder-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.folder-name {
+    color: var(--text-main);
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.folder-path {
+    color: var(--text-dim);
+    font-size: 0.75rem;
+    opacity: 0.6;
+}
+
+.launch-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--primary);
+    text-decoration: none;
+    font-size: 0.8rem;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.launch-btn:hover {
+    background: var(--primary);
+    color: var(--bg-dark);
+    font-weight: 700;
+}
+
+@media (min-width: 992px) {
+    .workspace-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
 /* Components: Experience & Certs */
 .experience-list {
     display: flex;

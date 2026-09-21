@@ -26,6 +26,30 @@ export class SectionRenderer {
         `).join('');
   }
 
+  static renderWorkspace(containerId: string, items: any[]): void {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    container.innerHTML = `
+      <div class="workspace-grid">
+        ${items.map(item => `
+          <div class="workspace-item">
+            <div class="workspace-info">
+              <span class="folder-icon"><i class="fas fa-folder"></i></span>
+              <div class="folder-details">
+                <span class="folder-name">${item.name}</span>
+                <span class="folder-path">${item.path}</span>
+              </div>
+            </div>
+            <a href="${item.url}" target="_blank" class="launch-btn">
+              <i class="fas fa-external-link-alt"></i> OPEN.TEST
+            </a>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  }
+
   static renderCertifications(containerId: string, certs: Certification[]): void {
     const container = document.getElementById(containerId);
     if (!container) return;

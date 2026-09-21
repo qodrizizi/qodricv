@@ -39,6 +39,12 @@ export interface Project {
     repoUrl?: string; // Optional
 }
 
+export interface LocalProject {
+    name: string;
+    path: string;
+    url: string;
+}
+
 export interface Profile {
     name: string;
     titles: string[];
@@ -47,5 +53,6 @@ export interface Profile {
     certifications: Certification[];
     experience: Experience[];
     projects: Project[];
+    workspace: LocalProject[];
     contact: ContactInfo;
 }

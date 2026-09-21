@@ -133,6 +133,25 @@ export const profileData: Profile = {
             demoUrl: "#"
         }
     ],
+    workspace: [
+        { name: "Dinaskominfostan Project", path: "c:/laragon/www/DinaskominfostanProject", url: "http://dinaskominfostanproject.test" },
+        { name: "Manajemen Project", path: "c:/laragon/www/ManajemenProject", url: "http://manajemenproject.test" },
+        { name: "Oxerity Web Profile", path: "c:/laragon/www/Oxerity-Web-Company-Profile", url: "http://oxerity-web-company-profile.test" },
+        { name: "Template Qodri", path: "c:/laragon/www/TEMPLATENYQODRI", url: "http://templatenyqodri.test" },
+        { name: "POS API", path: "c:/laragon/www/api-pos", url: "http://api-pos.test" },
+        { name: "Backend Core", path: "c:/laragon/www/backend", url: "http://backend.test" },
+        { name: "Sidisko BE", path: "c:/laragon/www/be-sidisko", url: "http://be-sidisko.test" },
+        { name: "CMS Deli Serdang", path: "c:/laragon/www/cmsdeliserdangkab", url: "http://cmsdeliserdangkab.test" },
+        { name: "CV Ahmad", path: "c:/laragon/www/cv-ahmad", url: "http://cv-ahmad.test" },
+        { name: "Sidisko FE", path: "c:/laragon/www/fe-sidisko", url: "http://fe-sidisko.test" },
+        { name: "Frontend Next", path: "c:/laragon/www/frontend-next", url: "http://frontend-next.test" },
+        { name: "My Template Keren", path: "c:/laragon/www/mytemplatekerenbroooo", url: "http://mytemplatekerenbroooo.test" },
+        { name: "POS Dashboard", path: "c:/laragon/www/pos-dashboard", url: "http://pos-dashboard.test" },
+        { name: "Pusaka Deli", path: "c:/laragon/www/pusaka-deli", url: "http://pusaka-deli.test" },
+        { name: "SI Informan Website", path: "c:/laragon/www/si-informanwebsite", url: "http://si-informanwebsite.test" },
+        { name: "Web Rekam Medis", path: "c:/laragon/www/web_rekammedis", url: "http://web_rekammedis.test" },
+        { name: "Web Finance", path: "c:/laragon/www/webfinance", url: "http://webfinance.test" }
+    ],
     contact: {
         address: "Medan, Sumatera Utara, Indonesia",
         phone: "+62 812 6012 1852",
