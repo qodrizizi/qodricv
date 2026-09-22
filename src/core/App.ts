@@ -9,6 +9,11 @@ import { ImageModal } from '../components/ImageModal';
 
 export class App {
     private revealObserver: IntersectionObserver | null = null;
+    private isScrollTicking = false;
+    private navbarEl: HTMLElement | null = null;
+    private scrollBtnEl: HTMLElement | null = null;
+    private sections: HTMLElement[] = [];
+    private navLinks: HTMLElement[] = [];
 
     constructor() {
         this.init();
@@ -21,10 +26,18 @@ export class App {
         this.initTypewriter();
         this.initStats();
         new TerminalWidget();
+        this.cacheDOMElements();
         this.setupEventListeners();
         this.initScrollReveal();
         this.handleLoading();
         this.initScrollToTop();
+    }
+
+    private cacheDOMElements(): void {
+        this.navbarEl = document.getElementById('navbar');
+        this.scrollBtnEl = document.getElementById('scrollTopBtn');
+        this.sections = Array.from(document.querySelectorAll('section'));
+        this.navLinks = Array.from(document.querySelectorAll('.nav-link'));
     }
 
     private initTypewriter(): void {
@@ -101,8 +114,8 @@ export class App {
                 }
             });
         }, {
-            threshold: 0.1,
-            rootMargin: '0px 0px -40px 0px'
+            threshold: 0.08,
+            rootMargin: '0px 0px -20px 0px'
         });
 
         this.observeRevealElements();
@@ -110,6 +123,7 @@ export class App {
         // Re-observe when dynamic content renders
         document.addEventListener('contentUpdated', () => {
             this.observeRevealElements();
+            this.sections = Array.from(document.querySelectorAll('section'));
         });
     }
 
@@ -171,37 +185,52 @@ export class App {
             });
         });
 
-        // Scroll Observer for Active State
-        window.addEventListener('scroll', this.handleScroll.bind(this));
+        // Optimized RAF Scroll Listener (Zero jank)
+        window.addEventListener('scroll', () => {
+            if (!this.isScrollTicking) {
+                this.isScrollTicking = true;
+                requestAnimationFrame(() => {
+                    this.handleScroll();
+                    this.isScrollTicking = false;
+                });
+            }
+        }, { passive: true });
     }
 
     private handleScroll(): void {
-        const navbar = document.getElementById('navbar');
-        if (window.scrollY > 40) {
-            navbar?.classList.add('scrolled');
+        const scrollY = window.scrollY;
+
+        // Navbar scrolled state
+        if (scrollY > 40) {
+            this.navbarEl?.classList.add('scrolled');
         } else {
-            navbar?.classList.remove('scrolled');
+            this.navbarEl?.classList.remove('scrolled');
         }
 
-        // ScrollSpy Logic
-        const sections = document.querySelectorAll('section');
-        const navLinks = document.querySelectorAll('.nav-link');
+        // Scroll to top button visibility
+        if (scrollY > 300) {
+            this.scrollBtnEl?.classList.add('visible');
+        } else {
+            this.scrollBtnEl?.classList.remove('visible');
+        }
 
+        // ScrollSpy Logic using cached arrays
         let currentSection = '';
-
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            if (window.scrollY >= (sectionTop - 140)) {
-                currentSection = section.getAttribute('id') || '';
+        for (let i = 0; i < this.sections.length; i++) {
+            const sec = this.sections[i];
+            if (scrollY >= (sec.offsetTop - 140)) {
+                currentSection = sec.getAttribute('id') || '';
             }
-        });
+        }
 
-        navLinks.forEach(link => {
-            link.classList.remove('active');
+        for (let j = 0; j < this.navLinks.length; j++) {
+            const link = this.navLinks[j];
             if (link.getAttribute('href') === `#${currentSection}`) {
                 link.classList.add('active');
+            } else {
+                link.classList.remove('active');
             }
-        });
+        }
     }
 
     private handleLoading(): void {
@@ -209,23 +238,13 @@ export class App {
         if (loading) {
             setTimeout(() => {
                 loading.classList.add('hidden');
-            }, 600);
+            }, 500);
         }
     }
 
     private initScrollToTop(): void {
-        const scrollBtn = document.getElementById('scrollTopBtn');
-
-        if (scrollBtn) {
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 300) {
-                    scrollBtn.classList.add('visible');
-                } else {
-                    scrollBtn.classList.remove('visible');
-                }
-            });
-
-            scrollBtn.addEventListener('click', () => {
+        if (this.scrollBtnEl) {
+            this.scrollBtnEl.addEventListener('click', () => {
                 window.scrollTo({
                     top: 0,
                     behavior: 'smooth'
