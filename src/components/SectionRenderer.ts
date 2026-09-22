@@ -17,7 +17,7 @@ export class SectionRenderer {
     if (!document.getElementById('project-filter-controls')) {
       const controls = document.createElement('div');
       controls.id = 'project-filter-controls';
-      controls.className = 'project-filter-controls';
+      controls.className = 'project-filter-controls reveal-on-scroll';
 
       controls.innerHTML = `
         <div class="project-search-bar">
@@ -90,7 +90,7 @@ export class SectionRenderer {
     }
 
     container.innerHTML = filtered.map(proj => `
-          <div class="project-card" data-category="${proj.category || 'all'}">
+          <div class="project-card reveal-on-scroll" data-category="${proj.category || 'all'}">
             <div class="project-img" data-img="${proj.imageUrl}" data-title="${proj.title}">
               <img src="${proj.imageUrl}" alt="${proj.title}" loading="lazy">
               <div class="project-zoom-badge"><i class="fas fa-search-plus"></i> PREVIEW</div>
@@ -125,6 +125,8 @@ export class SectionRenderer {
         }
       });
     });
+
+    document.dispatchEvent(new CustomEvent('contentUpdated'));
   }
 
   static renderCertifications(containerId: string, certs: Certification[]): void {
@@ -132,7 +134,7 @@ export class SectionRenderer {
     if (!container) return;
 
     container.innerHTML = certs.map(cert => `
-      <div class="certification-box" data-img="${cert.image}" data-name="${cert.name}" data-issuer="${cert.issuer}">
+      <div class="certification-box reveal-on-scroll" data-img="${cert.image}" data-name="${cert.name}" data-issuer="${cert.issuer}">
         <div class="cert-img-wrapper">
             <img src="${cert.image}" alt="${cert.name}" loading="lazy">
             <div class="cert-hover-zoom"><i class="fas fa-expand-alt"></i> VIEW CREDENTIAL</div>
@@ -157,6 +159,8 @@ export class SectionRenderer {
         }
       });
     });
+
+    document.dispatchEvent(new CustomEvent('contentUpdated'));
   }
 
   static renderExperience(containerId: string, experiences: Experience[], organizations?: Organization[], educations?: Education[]): void {
@@ -168,14 +172,14 @@ export class SectionRenderer {
     // Work Experience Group
     if (experiences && experiences.length > 0) {
       html += `
-        <div class="experience-group">
+        <div class="experience-group reveal-on-scroll">
           <div class="experience-group-header">
             <i class="fas fa-briefcase"></i>
             <span>PENGALAMAN KERJA (WORK EXPERIENCE)</span>
           </div>
           <div class="experience-list">
             ${experiences.map(exp => `
-              <div class="experience-item" data-type="work">
+              <div class="experience-item reveal-on-scroll" data-type="work">
                 <div class="exp-logo">
                     <img src="${exp.logo}" alt="${exp.company}" loading="lazy">
                 </div>
@@ -197,14 +201,14 @@ export class SectionRenderer {
     // Formal Education Group
     if (educations && educations.length > 0) {
       html += `
-        <div class="experience-group edu-group">
+        <div class="experience-group edu-group reveal-on-scroll">
           <div class="experience-group-header edu-header">
             <i class="fas fa-graduation-cap"></i>
             <span>PENDIDIKAN FORMAL (FORMAL EDUCATION)</span>
           </div>
           <div class="experience-list">
             ${educations.map(edu => `
-              <div class="experience-item" data-type="education">
+              <div class="experience-item reveal-on-scroll" data-type="education">
                 <div class="exp-logo">
                     <img src="${edu.logo}" alt="${edu.institution}" loading="lazy">
                 </div>
@@ -229,14 +233,14 @@ export class SectionRenderer {
     // Organization Experience Group
     if (organizations && organizations.length > 0) {
       html += `
-        <div class="experience-group org-group">
+        <div class="experience-group org-group reveal-on-scroll">
           <div class="experience-group-header org-header">
             <i class="fas fa-users"></i>
             <span>PENGALAMAN ORGANISASI (ORGANIZATIONAL EXPERIENCE)</span>
           </div>
           <div class="experience-list">
             ${organizations.map(org => `
-              <div class="experience-item" data-type="community">
+              <div class="experience-item reveal-on-scroll" data-type="community">
                 <div class="exp-logo">
                     <img src="${org.logo}" alt="${org.organization}" loading="lazy">
                 </div>
@@ -256,6 +260,7 @@ export class SectionRenderer {
     }
 
     container.innerHTML = html;
+    document.dispatchEvent(new CustomEvent('contentUpdated'));
   }
 
   static renderContact(contact: any): void {
@@ -289,6 +294,8 @@ export class SectionRenderer {
 
     const iframe = document.querySelector('.contact-map') as HTMLIFrameElement;
     if (iframe) iframe.src = contact.mapEmbedUrl;
+
+    document.dispatchEvent(new CustomEvent('contentUpdated'));
   }
 
   private static escapeHtml(str: string): string {

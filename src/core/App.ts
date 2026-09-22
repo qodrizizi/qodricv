@@ -8,6 +8,8 @@ import { TerminalWidget } from '../components/TerminalWidget';
 import { ImageModal } from '../components/ImageModal';
 
 export class App {
+    private revealObserver: IntersectionObserver | null = null;
+
     constructor() {
         this.init();
     }
@@ -20,6 +22,7 @@ export class App {
         this.initStats();
         new TerminalWidget();
         this.setupEventListeners();
+        this.initScrollReveal();
         this.handleLoading();
         this.initScrollToTop();
     }
@@ -27,13 +30,7 @@ export class App {
     private initTypewriter(): void {
         const typewriterEl = document.getElementById('hero-typewriter-text');
         if (typewriterEl) {
-            const roles = [
-                ...profileData.titles,
-                "Full-Stack Laravel & PostgreSQL Engineer",
-                "Linux Server & Infrastructure Hardener",
-                "CSIL Certified Computer Investigator"
-            ];
-            new Typewriter(typewriterEl, roles);
+            new Typewriter(typewriterEl, profileData.titles);
         }
     }
 
@@ -95,15 +92,52 @@ export class App {
         SectionRenderer.renderContact(profileData.contact);
     }
 
+    private initScrollReveal(): void {
+        this.revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-revealed');
+                    this.revealObserver?.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -40px 0px'
+        });
+
+        this.observeRevealElements();
+
+        // Re-observe when dynamic content renders
+        document.addEventListener('contentUpdated', () => {
+            this.observeRevealElements();
+        });
+    }
+
+    private observeRevealElements(): void {
+        if (!this.revealObserver) return;
+
+        const targets = document.querySelectorAll(
+            '.reveal-on-scroll, .section-header, .about-content, .stat-card, .contact-terminal, .contact-map'
+        );
+
+        targets.forEach(target => {
+            if (!target.classList.contains('is-revealed')) {
+                target.classList.add('reveal-on-scroll');
+                this.revealObserver?.observe(target);
+            }
+        });
+    }
+
     private setupEventListeners(): void {
-        // Navbar Toggling
+        // Mobile Navbar Toggling & Body Scroll Lock
         const hamburger = document.querySelector('.hamburger-menu');
         const navList = document.getElementById('navList');
 
         if (hamburger && navList) {
             hamburger.addEventListener('click', () => {
-                navList.classList.toggle('active');
+                const isActive = navList.classList.toggle('active');
                 hamburger.classList.toggle('active');
+                document.body.classList.toggle('nav-open', isActive);
             });
 
             // Close on link click
@@ -111,6 +145,7 @@ export class App {
                 link.addEventListener('click', () => {
                     navList.classList.remove('active');
                     hamburger.classList.remove('active');
+                    document.body.classList.remove('nav-open');
                 });
             });
         }
@@ -124,7 +159,7 @@ export class App {
 
                 const target = document.getElementById(targetId);
                 if (target) {
-                    const headerOffset = 80;
+                    const headerOffset = 70;
                     const elementPosition = target.getBoundingClientRect().top;
                     const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
@@ -142,7 +177,7 @@ export class App {
 
     private handleScroll(): void {
         const navbar = document.getElementById('navbar');
-        if (window.scrollY > 50) {
+        if (window.scrollY > 40) {
             navbar?.classList.add('scrolled');
         } else {
             navbar?.classList.remove('scrolled');
@@ -156,7 +191,7 @@ export class App {
 
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
-            if (window.scrollY >= (sectionTop - 150)) {
+            if (window.scrollY >= (sectionTop - 140)) {
                 currentSection = section.getAttribute('id') || '';
             }
         });
@@ -174,7 +209,7 @@ export class App {
         if (loading) {
             setTimeout(() => {
                 loading.classList.add('hidden');
-            }, 800);
+            }, 600);
         }
     }
 

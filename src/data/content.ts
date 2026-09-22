@@ -5,7 +5,7 @@ export const profileData: Profile = {
     titles: [
         "Software Engineer",
         "System Administrator",
-        "Digital Forensic Investigator"
+        "Digital Forensic Incident Response (DFIR)"
     ],
     about: [
         "I am a multi-disciplinary technology professional correcting the balance between building secure systems and investigating their breaches. My expertise spans the full lifecycle of digital infrastructure—from architecting robust software solutions to managing complex server environments and conducting forensic investigations when security incidents occur.",

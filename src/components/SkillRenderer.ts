@@ -36,7 +36,7 @@ export class SkillRenderer {
             const btn = document.createElement('button');
             btn.className = `filter-btn ${cat.id === this.currentFilter ? 'active' : ''}`;
             btn.dataset.filter = cat.id;
-            btn.textContent = cat.label; // Using textContent is safe here
+            btn.textContent = cat.label;
             btn.addEventListener('click', () => this.handleFilter(cat.id));
             filterContainer.appendChild(btn);
         });
@@ -69,23 +69,32 @@ export class SkillRenderer {
 
         filteredSkills.forEach((skill, index) => {
             const card = document.createElement('div');
-            card.className = 'skill-card';
-            // Staggered animation delay
-            card.style.animationDelay = `${index * 0.1}s`;
+            card.className = 'skill-card reveal-on-scroll';
+            card.style.animationDelay = `${index * 0.06}s`;
 
             card.innerHTML = `
-        <div class="skill-header">
-          <i class="${skill.icon}"></i>
-          <h3>${skill.name}</h3>
-        </div>
-        <div class="skill-meter-container">
-           <div class="skill-meter-bar" style="width: ${skill.level}%">
-              <span class="skill-percent">${skill.level}%</span>
-           </div>
-        </div>
-        <div class="skill-category-tag">${skill.category.replace('-', ' ').toUpperCase()}</div>
-      `;
+                <div class="skill-header">
+                    <i class="${skill.icon}"></i>
+                    <h3>${skill.name}</h3>
+                </div>
+                <div class="skill-meter-container">
+                    <div class="skill-meter-bar" data-level="${skill.level}" style="width: 0%">
+                        <span class="skill-percent">${skill.level}%</span>
+                    </div>
+                </div>
+                <div class="skill-category-tag">${skill.category.replace('-', ' ').toUpperCase()}</div>
+            `;
             this.container.appendChild(card);
+        });
+
+        // Animate meter bars with smooth fill
+        requestAnimationFrame(() => {
+            setTimeout(() => {
+                this.container.querySelectorAll('.skill-meter-bar').forEach(bar => {
+                    const level = (bar as HTMLElement).dataset.level || '0';
+                    (bar as HTMLElement).style.width = `${level}%`;
+                });
+            }, 100);
         });
     }
 }
