@@ -184,7 +184,7 @@ export const profileData: Profile = {
         {
             title: "Pusaka Deli",
             description: "Platform sistem informasi layanan terpadu kebudayaan dan arsip daerah Kabupaten Deli Serdang.",
-            technologies: ["Laravel", "PHP", "MySQL", "JavaScript", "Bootstrap"],
+            technologies: ["Laravel", "PHP", "MySQL", "JavaScript", "Tailwind"],
             imageUrl: "/img/pusaka.png",
             category: "government",
             demoUrl: "https://pusakadeli.deliserdangkab.go.id/"
@@ -192,7 +192,7 @@ export const profileData: Profile = {
         {
             title: "SI- Informan",
             description: "Sistem Informasi dan Pelayanan Perizinan DPMPTSP Kabupaten Deli Serdang untuk transparansi dan kemudahan layanan masyarakat.",
-            technologies: ["Laravel", "PHP", "PostgreSQL", "JavaScript", "Bootstrap"],
+            technologies: ["Laravel", "PHP", "PostgreSQL", "JavaScript", "Tailwind"],
             imageUrl: "/img/siinforman.png",
             category: "government",
             demoUrl: "https://dpmptsp.deliserdangkab.go.id/si-informan/"
@@ -224,8 +224,8 @@ export const profileData: Profile = {
         {
             title: "Website Perpustakaan & Arsip",
             description: "Sistem manajemen katalog buku digital, kearsipan daerah, dan otomasi peminjaman literatur Dinas Perpustakaan & Arsip.",
-            technologies: ["Laravel", "PHP", "PostgreSQL", "JavaScript", "Bootstrap"],
-            imageUrl: "/img/kominfo.png",
+            technologies: ["Laravel", "PHP", "PostgreSQL", "JavaScript", "Tailwind"],
+            imageUrl: "/img/perpusip.png",
             category: "government"
         },
         {
