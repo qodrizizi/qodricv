@@ -146,6 +146,20 @@ export const profileData: Profile = {
     ],
     projects: [
         {
+            title: "BonsaiKu",
+            description: "Platform e-commerce katalog dan belanja bonsai premium dengan manajemen varietas tanaman hias, keranjang belanja, serta antarmuka modern yang responsif.",
+            technologies: ["Laravel", "PHP", "TailwindCSS", "JavaScript", "MySQL"],
+            imageUrl: "/img/bonsaiku.png",
+            category: "enterprise"
+        },
+        {
+            title: "Website Gerakan Pramuka Kwarcab",
+            description: "Portal resmi Kwartir Cabang Gerakan Pramuka untuk sistem layanan informasi terpadu, publikasi warta kegiatan, pustaka regulasi, serta transparansi publik (PPID & JDIH).",
+            technologies: ["Laravel", "TailwindCSS", "PostgreSQL", "PHP", "REST API"],
+            imageUrl: "/img/pramuka.png",
+            category: "government"
+        },
+        {
             title: "Jeumpa SIKMRS",
             description: "Sistem Informasi Rekam Medis Rumah Sakit komprehensif dengan role-based access control, integrasi modul medis pasien, dan keamanan data.",
             technologies: ["CodeIgniter 4", "PHP", "MySQL", "Bootstrap", "jQuery"],
@@ -224,7 +238,7 @@ export const profileData: Profile = {
         },
         {
             title: "API Website Sidisko",
-            description: "Backend RESTful API dan mikroservis data untuk integrasi aplikasi Dinas Koperasi dan UKM (Sidisko) Deli Serdang.",
+            description: "Backend RESTful API dan mikroservis data untuk sistem informasi permohonan layanan TIK Dinas Kominfostan Deli Serdang (pembuatan aplikasi, website, infrastruktur jaringan, internet, dll).",
             technologies: ["Laravel", "PHP", "PostgreSQL", "REST API", "JWT"],
             imageUrl: "/img/kominfo.jpg",
             category: "backend"

@@ -83,13 +83,17 @@ export class CyberBackground {
         this.animate();
     }
 
+    private isScrollingFast = false;
+
     private resize(): void {
         if (!this.canvas || !this.ctx) return;
 
-        // Cap DPR at 2 for optimal balance between sharpness and 60fps performance
-        this.dpr = Math.min(window.devicePixelRatio || 1, 2);
         this.width = window.innerWidth || document.documentElement.clientWidth || 1920;
         this.height = window.innerHeight || document.documentElement.clientHeight || 1080;
+        const isMobile = this.width < 768;
+
+        // Use 1x DPR on mobile to eliminate massive GPU fillrate overhead, max 1.5x on desktop
+        this.dpr = isMobile ? 1 : Math.min(window.devicePixelRatio || 1, 1.5);
 
         this.canvas.width = Math.floor(this.width * this.dpr);
         this.canvas.height = Math.floor(this.height * this.dpr);
@@ -104,21 +108,21 @@ export class CyberBackground {
         this.particles = [];
         this.packets = [];
 
-        // Lightweight particle count for buttery-smooth scrolling
+        // Lightweight particle count: 14 on mobile (only 91 distance checks vs 496 checks!)
         const isMobile = this.width < 768;
-        const particleCount = isMobile ? 32 : 55;
+        const particleCount = isMobile ? 14 : 50;
 
         for (let i = 0; i < particleCount; i++) {
             const baseColor = this.colors[i % this.colors.length];
-            const isAnchor = i % 6 === 0;
+            const isAnchor = i % 5 === 0;
             const alpha = isAnchor ? 0.85 : 0.55;
 
             this.particles.push({
                 x: Math.random() * this.width,
                 y: Math.random() * this.height,
-                vx: (Math.random() - 0.5) * (isMobile ? 0.4 : 0.6),
-                vy: (Math.random() - 0.5) * (isMobile ? 0.4 : 0.6),
-                radius: isAnchor ? 2.8 : 1.6,
+                vx: (Math.random() - 0.5) * (isMobile ? 0.3 : 0.6),
+                vy: (Math.random() - 0.5) * (isMobile ? 0.3 : 0.6),
+                radius: isAnchor ? (isMobile ? 2.2 : 2.8) : (isMobile ? 1.4 : 1.6),
                 color: baseColor,
                 alpha: alpha,
                 isAnchor: isAnchor,
@@ -130,16 +134,17 @@ export class CyberBackground {
     private createGlyphs(): void {
         this.glyphs = [];
         const isMobile = this.width < 768;
-        const glyphCount = isMobile ? 6 : 10;
+        // On mobile keep only 2 glyphs to prevent text rasterization overhead
+        const glyphCount = isMobile ? 2 : 8;
 
         for (let i = 0; i < glyphCount; i++) {
             this.glyphs.push({
                 x: Math.random() * this.width,
                 y: Math.random() * this.height,
                 text: this.glyphStrings[i % this.glyphStrings.length],
-                vx: (Math.random() - 0.5) * 0.2,
-                vy: (Math.random() - 0.5) * 0.2,
-                alpha: 0.18
+                vx: (Math.random() - 0.5) * 0.15,
+                vy: (Math.random() - 0.5) * 0.15,
+                alpha: 0.16
             });
         }
     }
@@ -210,6 +215,18 @@ export class CyberBackground {
             this.mouse.y = -1000;
         }, { passive: true });
 
+        // Throttle canvas during fast mobile scrolling to ensure 60/120fps UI scrolling
+        let scrollTimer: number;
+        window.addEventListener('scroll', () => {
+            if (this.width < 768) {
+                this.isScrollingFast = true;
+                clearTimeout(scrollTimer);
+                scrollTimer = window.setTimeout(() => {
+                    this.isScrollingFast = false;
+                }, 90);
+            }
+        }, { passive: true });
+
         // Freeze animations when tab is inactive to save battery
         document.addEventListener('visibilitychange', () => {
             this.isVisible = document.visibilityState === 'visible';
@@ -242,6 +259,11 @@ export class CyberBackground {
 
     private render(): void {
         if (!this.ctx || !this.canvas) return;
+
+        // Skip rendering on mobile during fast scroll to preserve GPU and eliminate frame drops
+        if (this.isScrollingFast && this.width < 768) {
+            return;
+        }
 
         this.ctx.clearRect(0, 0, this.width, this.height);
 

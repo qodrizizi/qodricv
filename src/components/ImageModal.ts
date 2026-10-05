@@ -61,11 +61,13 @@ export class ImageModal {
         if (this.subtitleElement) this.subtitleElement.textContent = subtitle ? ` // ${subtitle}` : '';
 
         this.modalElement?.classList.add('active');
+        document.body.classList.add('modal-open');
         document.body.style.overflow = 'hidden';
     }
 
     public static close(): void {
         this.modalElement?.classList.remove('active');
+        document.body.classList.remove('modal-open');
         document.body.style.overflow = '';
     }
 }

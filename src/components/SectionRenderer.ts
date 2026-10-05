@@ -28,7 +28,7 @@ export class SectionRenderer {
         <div class="project-filter-buttons" id="project-filter-buttons">
           <button class="filter-btn active" data-filter="all">ALL [${projects.length}]</button>
           <button class="filter-btn" data-filter="government">GOV & E-GOV</button>
-          <button class="filter-btn" data-filter="enterprise">ENTERPRISE & FINANCE</button>
+          <button class="filter-btn" data-filter="enterprise">ENTERPRISE & E-COMMERCE</button>
           <button class="filter-btn" data-filter="backend">API & BACKEND</button>
           <button class="filter-btn" data-filter="health">HEALTHCARE</button>
         </div>
@@ -91,13 +91,13 @@ export class SectionRenderer {
 
     container.innerHTML = filtered.map(proj => `
           <div class="project-card reveal-on-scroll" data-category="${proj.category || 'all'}">
-            <div class="project-img" data-img="${proj.imageUrl}" data-title="${proj.title}">
-              <img src="${proj.imageUrl}" alt="${proj.title}" loading="lazy">
+            <div class="project-img" data-img="${proj.imageUrl}" data-title="${proj.title}" data-desc="${this.escapeHtml(proj.description)}">
+              <img src="${proj.imageUrl}" alt="${proj.title}" loading="lazy" decoding="async">
               <div class="project-zoom-badge"><i class="fas fa-search-plus"></i> PREVIEW</div>
               <div class="project-overlay">
-                 <button class="btn preview-btn" data-img="${proj.imageUrl}" data-title="${proj.title}" data-desc="${proj.description}"><i class="fas fa-eye"></i> View</button>
-                 ${proj.demoUrl && proj.demoUrl !== '#' ? `<a href="${proj.demoUrl}" target="_blank" rel="noopener noreferrer" class="btn primary-btn"><i class="fas fa-external-link-alt"></i> Visit</a>` : ''}
-                 ${proj.repoUrl && proj.repoUrl !== '#' ? `<a href="${proj.repoUrl}" target="_blank" rel="noopener noreferrer" class="btn secondary-btn"><i class="fab fa-github"></i> Code</a>` : ''}
+                 <button type="button" class="btn preview-btn" data-img="${proj.imageUrl}" data-title="${proj.title}" data-desc="${this.escapeHtml(proj.description)}"><i class="fas fa-eye"></i> View</button>
+                 ${proj.demoUrl && proj.demoUrl !== '#' ? `<a href="${proj.demoUrl}" target="_blank" rel="noopener noreferrer" class="btn primary-btn" onclick="event.stopPropagation()"><i class="fas fa-external-link-alt"></i> Visit</a>` : ''}
+                 ${proj.repoUrl && proj.repoUrl !== '#' ? `<a href="${proj.repoUrl}" target="_blank" rel="noopener noreferrer" class="btn secondary-btn" onclick="event.stopPropagation()"><i class="fab fa-github"></i> Code</a>` : ''}
               </div>
             </div>
             <div class="project-content">
@@ -109,13 +109,35 @@ export class SectionRenderer {
               <div class="project-tech">
                  ${proj.technologies.map(tech => `<span>${tech}</span>`).join('')}
               </div>
+              <div class="project-actions-mobile">
+                 <button type="button" class="btn mobile-preview-btn" data-img="${proj.imageUrl}" data-title="${proj.title}" data-desc="${this.escapeHtml(proj.description)}"><i class="fas fa-search-plus"></i> Preview</button>
+                 ${proj.demoUrl && proj.demoUrl !== '#' ? `<a href="${proj.demoUrl}" target="_blank" rel="noopener noreferrer" class="btn primary-btn"><i class="fas fa-external-link-alt"></i> Visit</a>` : ''}
+                 ${proj.repoUrl && proj.repoUrl !== '#' ? `<a href="${proj.repoUrl}" target="_blank" rel="noopener noreferrer" class="btn secondary-btn"><i class="fab fa-github"></i> Code</a>` : ''}
+              </div>
             </div>
           </div>
         `).join('');
 
-    // Bind ImageModal triggers on project images & preview buttons
-    container.querySelectorAll('.project-img, .preview-btn').forEach(el => {
+    // Bind ImageModal triggers on project images
+    container.querySelectorAll('.project-img').forEach(el => {
       el.addEventListener('click', (e) => {
+        // Ignore if clicked on an action link/button inside overlay
+        if ((e.target as HTMLElement).closest('a, button')) return;
+        const target = (e.currentTarget as HTMLElement);
+        const imgSrc = target.getAttribute('data-img');
+        const title = target.getAttribute('data-title') || 'Project Preview';
+        const desc = target.getAttribute('data-desc') || '';
+        if (imgSrc) {
+          ImageModal.open(imgSrc, title, desc);
+        }
+      });
+    });
+
+    // Bind preview buttons (both desktop overlay and mobile button)
+    container.querySelectorAll('.preview-btn, .mobile-preview-btn').forEach(el => {
+      el.addEventListener('click', (e) => {
+        e.stopPropagation();
+        e.preventDefault();
         const target = (e.currentTarget as HTMLElement);
         const imgSrc = target.getAttribute('data-img');
         const title = target.getAttribute('data-title') || 'Project Preview';

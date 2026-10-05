@@ -50,7 +50,7 @@ export class App {
     private initStats(): void {
         new StatsCounter('stats-counter-container', [
             {
-                value: 12,
+                value: profileData.projects.length,
                 suffix: '+',
                 label: 'Production Systems Deployed',
                 icon: 'fas fa-rocket'

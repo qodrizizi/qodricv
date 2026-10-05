@@ -39,7 +39,8 @@ body {
     -webkit-tap-highlight-color: transparent;
 }
 
-body.nav-open {
+body.nav-open,
+body.modal-open {
     overflow: hidden;
     touch-action: none;
 }
@@ -1054,6 +1055,10 @@ main {
     border-radius: 12px;
 }
 
+.project-actions-mobile {
+    display: none;
+}
+
 .projects-empty-state {
     grid-column: 1 / -1;
     text-align: center;
@@ -1562,6 +1567,15 @@ main {
 .terminal-header-title {
     color: var(--text-dim);
     font-size: 0.75rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.terminal-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .terminal-header-status {
@@ -1570,6 +1584,45 @@ main {
     border: 1px solid #3fb950;
     padding: 1px 5px;
     border-radius: 3px;
+}
+
+.terminal-close-action {
+    background: transparent;
+    border: none;
+    color: var(--text-dim);
+    font-size: 0.95rem;
+    cursor: pointer;
+    padding: 4px 6px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.terminal-close-action:hover {
+    color: var(--alert);
+    background: rgba(248, 81, 73, 0.15);
+}
+
+.terminal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(5, 8, 17, 0.7);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.terminal-backdrop.active {
+    opacity: 1;
+    visibility: visible;
 }
 
 .terminal-window-body {
@@ -1841,6 +1894,33 @@ main {
         --nav-height: 64px;
     }
 
+    /* Extreme GPU Optimization for Silky-Smooth Mobile Scrolling */
+    .glow-orb {
+        filter: none !important;
+        mix-blend-mode: normal !important;
+        animation: none !important;
+        opacity: 0.12 !important;
+        will-change: auto !important;
+        transform: none !important;
+    }
+
+    .orb-1 {
+        width: 250px;
+        height: 250px;
+    }
+
+    .orb-2, .orb-3 {
+        display: none !important;
+    }
+
+    .cyber-scanlines, .cyber-horizon {
+        display: none !important;
+    }
+
+    .mouse-glow {
+        display: none !important;
+    }
+
     .nav-container {
         padding: 0 1.2rem;
     }
@@ -2023,11 +2103,42 @@ main {
 
     .projects-grid {
         grid-template-columns: 1fr;
-        gap: 1.3rem;
+        gap: 1.4rem;
     }
 
     .project-img {
-        height: 175px;
+        height: 195px;
+    }
+
+    .project-overlay {
+        display: none !important;
+    }
+
+    .project-actions-mobile {
+        display: flex;
+        gap: 0.5rem;
+        margin-top: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .project-actions-mobile .btn {
+        padding: 8px 12px;
+        font-size: 0.78rem;
+        border-radius: 4px;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        flex: 1;
+        justify-content: center;
+        min-height: 40px;
+        font-family: var(--font-mono);
+    }
+
+    .mobile-preview-btn {
+        background: rgba(88, 166, 255, 0.15);
+        border: 1px solid var(--border-highlight);
+        color: var(--primary);
     }
 
     /* Experience & Timeline Mobile */
@@ -2096,17 +2207,47 @@ main {
     }
 
     .terminal-modal {
-        right: 0.8rem;
-        left: 0.8rem;
+        right: 0.75rem;
+        left: 0.75rem;
         width: auto;
-        bottom: 4.5rem;
-        height: 340px;
+        bottom: 4.8rem;
+        height: 380px;
+        max-height: 65dvh;
+    }
+
+    .terminal-traffic-lights .close-dot {
+        position: relative;
+    }
+
+    .terminal-traffic-lights .close-dot::after {
+        content: '';
+        position: absolute;
+        inset: -10px;
     }
 
     .cyber-toast-container {
         left: 1rem;
         right: 1rem;
-        bottom: 4.5rem;
+        bottom: 4.8rem;
+    }
+
+    /* Image Modal Mobile Fixes */
+    .cyber-image-modal {
+        padding: 0.75rem;
+    }
+
+    .modal-window {
+        max-height: 85vh;
+        max-height: 85dvh;
+    }
+
+    .modal-header {
+        padding: 0.6rem 0.8rem;
+    }
+
+    .modal-close-btn {
+        padding: 6px 10px;
+        min-height: 36px;
     }
 }
 

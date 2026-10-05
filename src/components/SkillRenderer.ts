@@ -47,8 +47,9 @@ export class SkillRenderer {
     private handleFilter(category: string): void {
         this.currentFilter = category;
 
-        // Update buttons
-        document.querySelectorAll('.filter-btn').forEach(btn => {
+        // Update skill filter buttons only (scoped to #skill-filters)
+        const filterContainer = document.getElementById('skill-filters');
+        filterContainer?.querySelectorAll('.filter-btn').forEach(btn => {
             if ((btn as HTMLElement).dataset.filter === category) {
                 btn.classList.add('active');
             } else {
@@ -69,8 +70,9 @@ export class SkillRenderer {
 
         filteredSkills.forEach((skill, index) => {
             const card = document.createElement('div');
-            card.className = 'skill-card reveal-on-scroll';
-            card.style.animationDelay = `${index * 0.06}s`;
+            // Ensure card is visible immediately when filtered
+            card.className = 'skill-card is-revealed';
+            card.style.animationDelay = `${index * 0.05}s`;
 
             card.innerHTML = `
                 <div class="skill-header">
@@ -87,6 +89,8 @@ export class SkillRenderer {
             this.container.appendChild(card);
         });
 
+        document.dispatchEvent(new CustomEvent('contentUpdated'));
+
         // Animate meter bars with smooth fill
         requestAnimationFrame(() => {
             setTimeout(() => {
@@ -94,7 +98,7 @@ export class SkillRenderer {
                     const level = (bar as HTMLElement).dataset.level || '0';
                     (bar as HTMLElement).style.width = `${level}%`;
                 });
-            }, 100);
+            }, 60);
         });
     }
 }

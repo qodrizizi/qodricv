@@ -20,24 +20,32 @@ export class TerminalWidget {
 
         widget.innerHTML = `
             <!-- Floating Launcher Button -->
-            <button id="terminal-launcher-btn" class="terminal-launcher-btn" title="Open Interactive CLI">
+            <button id="terminal-launcher-btn" class="terminal-launcher-btn" title="Open Interactive CLI" aria-label="Open Interactive CLI">
                 <i class="fas fa-terminal"></i>
                 <span class="launcher-text">CLI_TERMINAL</span>
                 <span class="launcher-pulse"></span>
             </button>
 
+            <!-- Terminal Backdrop for mobile dismissal -->
+            <div id="terminal-backdrop" class="terminal-backdrop"></div>
+
             <!-- Floating CLI Terminal Window -->
             <div id="terminal-modal" class="terminal-modal">
                 <div class="terminal-window-header">
                     <div class="terminal-traffic-lights">
-                        <span class="dot close-dot" id="terminal-close-btn"></span>
+                        <span class="dot close-dot" id="terminal-close-btn" title="Close Shell"></span>
                         <span class="dot min-dot"></span>
                         <span class="dot max-dot"></span>
                     </div>
                     <div class="terminal-header-title">
-                        <i class="fas fa-shield-alt"></i> root@qodri-sec-node:~ (bash)
+                        <i class="fas fa-shield-alt"></i> root@qodri:~ (bash)
                     </div>
-                    <div class="terminal-header-status">LIVE</div>
+                    <div class="terminal-header-actions">
+                        <span class="terminal-header-status">LIVE</span>
+                        <button class="terminal-close-action" id="terminal-header-close-btn" title="Close Terminal" aria-label="Close Terminal">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
                 </div>
                 <div class="terminal-window-body" id="terminal-output">
                     <div class="term-line welcome-line">
@@ -62,13 +70,32 @@ export class TerminalWidget {
     private bindEvents(): void {
         const launcherBtn = document.getElementById('terminal-launcher-btn');
         const closeBtn = document.getElementById('terminal-close-btn');
+        const headerCloseBtn = document.getElementById('terminal-header-close-btn');
+        const backdrop = document.getElementById('terminal-backdrop');
 
-        launcherBtn?.addEventListener('click', () => {
+        launcherBtn?.addEventListener('click', (e) => {
+            e.stopPropagation();
             this.toggleTerminal();
         });
 
-        closeBtn?.addEventListener('click', () => {
+        closeBtn?.addEventListener('click', (e) => {
+            e.stopPropagation();
             this.closeTerminal();
+        });
+
+        headerCloseBtn?.addEventListener('click', (e) => {
+            e.stopPropagation();
+            this.closeTerminal();
+        });
+
+        backdrop?.addEventListener('click', () => {
+            this.closeTerminal();
+        });
+
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && this.isOpen) {
+                this.closeTerminal();
+            }
         });
 
         this.inputElement?.addEventListener('keydown', (e: KeyboardEvent) => {
@@ -109,14 +136,18 @@ export class TerminalWidget {
 
     public openTerminal(): void {
         const modal = document.getElementById('terminal-modal');
+        const backdrop = document.getElementById('terminal-backdrop');
         modal?.classList.add('active');
+        backdrop?.classList.add('active');
         this.isOpen = true;
         setTimeout(() => this.inputElement?.focus(), 100);
     }
 
     public closeTerminal(): void {
         const modal = document.getElementById('terminal-modal');
+        const backdrop = document.getElementById('terminal-backdrop');
         modal?.classList.remove('active');
+        backdrop?.classList.remove('active');
         this.isOpen = false;
     }
 
@@ -141,7 +172,7 @@ export class TerminalWidget {
                         <span class="term-cyan">AVAILABLE COMMANDS:</span><br>
                         • <span class="term-green">whoami</span>    : Display candidate profile & summary<br>
                         • <span class="term-green">skills</span>    : List technical competencies & stack<br>
-                        • <span class="term-green">projects</span>  : Show 12 deployed production applications<br>
+                        • <span class="term-green">projects</span>  : Show ${profileData.projects.length} deployed production applications<br>
                         • <span class="term-green">edu</span>       : Show formal university degree & GPA<br>
                         • <span class="term-green">certs</span>     : Display professional certifications<br>
                         • <span class="term-green">contact</span>   : Print verified communication channels<br>
@@ -174,8 +205,8 @@ export class TerminalWidget {
             case 'projects':
                 this.appendLine(`
                     <div class="term-box">
-                        <span class="term-cyan">12 PRODUCTION PROJECTS:</span><br>
-                        ${profileData.projects.map((p, idx) => `${idx + 1}. <span class="term-green">${p.title}</span> - ${p.technologies.join(', ')} ${p.demoUrl ? `<a href="${p.demoUrl}" target="_blank" class="term-link">[VISIT]</a>` : ''}`).join('<br>')}
+                        <span class="term-cyan">${profileData.projects.length} PRODUCTION PROJECTS:</span><br>
+                        ${profileData.projects.map((p, idx) => `${idx + 1}. <span class="term-green">${p.title}</span> (${p.category}) - ${p.technologies.slice(0, 3).join(', ')} ${p.demoUrl ? `<a href="${p.demoUrl}" target="_blank" rel="noopener noreferrer" class="term-link">[VISIT]</a>` : ''}`).join('<br>')}
                     </div>
                 `);
                 break;
